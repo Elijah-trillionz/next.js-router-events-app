@@ -9,18 +9,21 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     router.events.on('routeChangeStart', (url) => {
+      console.log(url);
       setRouteIsChanging(true);
 
       if (url.includes('/notes/')) {
         // store it locally
         localStorage.setItem('last-visited-note', url);
       }
-      // console.log(`route is transitioning to ${url}`);
     });
 
     router.events.on('routeChangeComplete', (url) => {
       setRouteIsChanging(false);
-      // console.log(`route successfully transitioned to ${url}`);
+    });
+
+    router.events.on('beforeHistoryChange', (url) => {
+      console.log('history changing to ', url);
     });
 
     return () => {
@@ -55,39 +58,9 @@ function MyApp({ Component, pageProps }) {
           style={{ width: `${progress}%` }}
         />
       )}
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }
 
 export default MyApp;
-
-// router.events.on('routeChangeStart', (url, { shallow }) => {
-//   console.log(
-//     `route is transitioning to ${url}, ${
-//       shallow ? 'with' : 'without'
-//     } shallow routing`
-//   );
-// });
-
-// router.events.on('routeChangeComplete', (url) => {
-//   console.log(`succesfully routed to ${url}`);
-// });
-
-// router.events.on('routeChangeError', (err, url) => {
-//   console.log(
-//     `encountered an error while routing to ${url}, ${
-//       err.cancelled ? 'user cancelled the route' : err
-//     }`
-//   );
-// });
-
-// router.events.on('beforeHistoryChange', (url) => {
-//   console.log(`about to change history to ${url}`);
-// });
-
-// router.events.on('hashChangeStart', (url, { shallow }) => {
-//   console.log(
-//     `changing hash to ${url}, of course it is shallow ${shallow}`
-//   );
-// });
