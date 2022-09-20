@@ -13,8 +13,8 @@ const Notes = () => {
         <h1 className={styles.title}>All Notes Created</h1>
         <p className={styles.description}>
           No new notes can be created any further, achieve the these ones first,
-          don't rush 😂 <br />
-          Besides we don't have free storage for you anymore
+          don not rush 😂 <br />
+          Besides we do not have free storage for you anymore
         </p>
         <div className={styles.grid}>
           <Link href='/notes/1'>
